@@ -1,8 +1,69 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const [title, setTitle] = useState('');
+  const [movie, setMovie] = useState({});
+  const [nominations, setNominations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const BASE_URL = ''
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setLoading(true)
+    // fetch(`http://www.omdbapi.com/apikey=${process.env.API_KEY}&t=${title}`)
+    fetch(`http://www.omdbapi.com/?apikey=8154a0e3&t=${title}`)
+    .then((response) => {
+      console.log(response)
+      if (response.status !== 200) {
+        console.log({response})
+        alert(response.status)
+      }
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data)
+      setMovie(data)
+      setLoading(false)
+    })
+    .catch((err) => {
+      alert(err)
+      setLoading(false)
+    })
+  }
+
+  const handleInputChange = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const addNomination = () => {
+    let errors = [];
+    if (nominations.length >= 5) {
+      errors.push('You Have Already Selected 5 Movies')
+    }
+    if (nominations.some((nominatedMovie) => nominatedMovie.imdbID == movie.imdbID)) {
+      errors.push('This Movie Has Already Been Nominated')
+    }
+    errors.length ? 
+      alert(errors)
+      : setNominations(prevNominations => {
+        return [...prevNominations, movie]
+      })
+  }
+
+  let nominationContent = <p>No Nominations Selected</p>
+
+  if (nominations.length > 0) {
+    nominationContent = (
+    <ul>
+      {nominations.map((movie) => {
+        return <li>{movie.Title}</li>
+      })}
+    </ul>
+    )
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,46 +73,29 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <h1>Search For A Movie</h1>
+        <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="title">
+          Movie Title
+          <input type="text" name="title" id="title" value={title} onChange={handleInputChange}/>
+        </label>
+        {loading && 
+          <p>Loading...</p>
+        }
+        <button type="submit">Submit</button>
+        </form>
+        {movie.Title &&
+          <div className={styles.card}>
+            <p>{movie.Title}</p>
+            <p>{movie.Year}</p>
+            <button onClick={addNomination}>Nominate</button>
+          </div>
+        }
+        <div>
+          <h2>Saved Nominations</h2>
+          {nominationContent}
         </div>
       </main>
-
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
