@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: theme => ({
-       'body-bg': "url('/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg')",
+       'body-background': "url('/solid-green-background.jpeg')",
       })
     },
   },
