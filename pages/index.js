@@ -75,10 +75,12 @@ export default function Home() {
       <main className={styles.main}>
         <h1>Search For A Movie</h1>
         <form onSubmit={handleSubmit} className={styles.form}>
+          <div>
         <label htmlFor="title">
           Movie Title
-          <input type="text" name="title" id="title" value={title} onChange={handleInputChange}/>
         </label>
+          <input type="text" name="title" id="title" value={title} onChange={handleInputChange}/>
+          </div>
         {loading && 
           <p>Loading...</p>
         }
