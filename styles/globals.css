@@ -10,6 +10,12 @@
   h3 {
     @apply text-lg;
   }
+  .shop-btn {
+    @apply bg-green-600 hover:bg-green-700 text-white font-bold py-1.5 px-3 rounded; 
+  }
+  .remove-btn {
+    @apply bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 rounded; 
+  }
 }
 @tailwind components;
 
