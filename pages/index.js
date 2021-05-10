@@ -16,7 +16,7 @@ export default function Home() {
     event.preventDefault()
     setLoading(true);
     const searchValue = title;
-    fetch(`http://www.omdbapi.com/?apikey=8154a0e3&type=movie&s=${title}`)
+    fetch(`https://www.omdbapi.com/?apikey=8154a0e3&type=movie&s=${title}`)
     .then((response) => {
       return response.json()
     })
