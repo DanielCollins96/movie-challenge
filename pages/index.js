@@ -96,7 +96,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-full flex flex-col justify-start items-center bg-gradient-to-r from-green-700 via-green-400 to-green-700">
+    <div className="h-screen flex flex-col justify-start items-center bg-gradient-to-r from-green-700 via-green-400 to-green-700">
       <Head>
         <title>The Shoppies</title>
         <meta name="description" content="The Shoppies | A Site That Allows a User to Search and Nominate Movies" />
