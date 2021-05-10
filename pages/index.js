@@ -96,7 +96,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-start items-center bg-gradient-to-r from-green-700 via-green-400 to-green-700">
+    <div className="h-full flex flex-col justify-start items-center bg-gradient-to-r from-green-700 via-green-400 to-green-700">
       <Head>
         <title>The Shoppies</title>
         <meta name="description" content="The Shoppies | A Site That Allows a User to Search and Nominate Movies" />
@@ -139,7 +139,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 overflow-y-scroll h-80 w-5/6 lg:grid-cols-2 border rounded p-1">
+        <div className="grid grid-cols-1 overflow-y-scroll h-72 w-5/6 lg:grid-cols-2 border rounded p-1">
         {movies?.list?.length > 0 && movies.list.map((movie) => {
         return (
           <div className="flex flex-col justify-between bg-gray-200 p-2 m-1 gap-1 rounded">
@@ -157,7 +157,7 @@ export default function Home() {
         </div>
         {nominations?.length >= 5 && displayBanner()}
 
-        <div className="w-5/6 h-40 border rounded p-1">
+        <div className="w-5/6 border rounded p-1">
           <div className="flex justify-center gap-2">
           <h2>Saved Nominations</h2><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
