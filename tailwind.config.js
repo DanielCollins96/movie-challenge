@@ -5,7 +5,10 @@ module.exports = {
     extend: {
       backgroundImage: theme => ({
        'body-background': "url('/solid-green-background.jpeg')",
-      })
+      }),
+      maxHeight: theme => ({
+        "screen/2": "50vh",
+      }),
     },
   },
   variants: {
