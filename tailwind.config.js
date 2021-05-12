@@ -7,7 +7,7 @@ module.exports = {
        'body-background': "url('/solid-green-background.jpeg')",
       }),
       maxHeight: theme => ({
-        "screen/2": "50vh",
+        "screen/2": "40vh",
       }),
     },
   },

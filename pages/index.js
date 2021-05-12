@@ -166,7 +166,7 @@ export default function Home() {
         }
         </div>
         <div className="w-5/6 border flex-1 max-h-60  rounded p-1">
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2 border-b">
           <h2>Saved Nominations</h2><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
 </svg></div>
