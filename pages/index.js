@@ -57,8 +57,6 @@ export default function Home() {
     return nominations.some((nominatedMovie) => nominatedMovie.imdbID == movie.imdbID)
   }
 
-
-
   const addNomination = (movie) => {
     let errors = [];
     if (nominations.length >= 5) {
@@ -80,7 +78,6 @@ export default function Home() {
 		);
     setNominations(newNominationList);
   }
-
 
   let NominationContent = <p className="text-center">No Nominations Selected...</p>
 
@@ -111,7 +108,7 @@ export default function Home() {
         <meta name="description" content="The Shoppies | A Site That Allows a User to Search and Nominate Movies" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="max-w-6xl flex flex-col flex-1 gap-2 justify-around items-center w-4/5 bg-white">
+      <main className="max-w-6xl flex flex-col flex-1 gap-2 justify-around items-center w-5/6 bg-white">
         <h1 className="text-center font-bold my-2">Search For A Movie</h1>
         {nominations?.length >= 5 && <DisplayBanner />}
         <div className="w-full max-w-lg">
@@ -173,7 +170,7 @@ export default function Home() {
         {NominationContent}
         </div>
       </main>
-      <footer className="w-full h-8 flex justify-center items-center items-center border-t bg-gray-100">
+      <footer className="w-full h-8 flex justify-center items-center border-t bg-gray-100">
         <a
           href="https://www.omdbapi.com/"
           target="_blank"
