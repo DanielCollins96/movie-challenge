@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 
 export default function Home() {
   const [title, setTitle] = useState('');
@@ -178,7 +177,7 @@ export default function Home() {
         >
           Powered by the <strong>OMDB Api</strong>{' '}
           <span className="">
-            <Image src="/favicon.ico" alt="Omdb Api Logo" width={16} height={16} />
+            <img className="inline" src="/favicon.ico" alt="Omdb Api Logo" />
           </span>
         </a>
       </footer>
