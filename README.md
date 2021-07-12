@@ -22,5 +22,5 @@ This is an app to help manage our movie nominations for the upcoming Shoppies. I
 - [x] Movies in search results can be added and removed from the nomination list.
 - [x] If a search result has already been nominated, disable its nominate button.
 - [x] Display a banner when the user has 5 nominations.
-- [ ] Save nominations to local storage 
+- [x] Save nominations to local storage 
 - [ ] Expand movie details in modal

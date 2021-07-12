@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
@@ -11,6 +11,19 @@ export default function Home() {
   const [nominations, setNominations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const savedFavourites = JSON.parse(localStorage.getItem('Shoppies-Nominations'));
+    console.log(savedFavourites)
+    if (savedFavourites){
+      setNominations(savedFavourites)
+    }
+  }, [])
+
+  useEffect(() => {
+		localStorage.setItem('Shoppies-Nominations', JSON.stringify(nominations));
+    console.log('innnnnnner')
+  }, [nominations])
   
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -36,10 +49,6 @@ export default function Home() {
     })
   }
 
-  const saveToLocalStorage = (items) => {
-		localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
-	};
-
   const handleInputChange = (e) => {
     setTitle(e.target.value)
   }
@@ -48,15 +57,9 @@ export default function Home() {
     return nominations.some((nominatedMovie) => nominatedMovie.imdbID == movie.imdbID)
   }
 
-  const displayBanner = () => {
-    return (
-      <div className="grid place-items-center bg-red-700 w-full h-16 text-center text-white font-bold">User Has Selected 5 Movies!</div>
-    )
-  }
+
 
   const addNomination = (movie) => {
-    console.log("WHT")
-    console.log(movie)
     let errors = [];
     if (nominations.length >= 5) {
       errors.push('You Have Already Selected 5 Movies')
@@ -79,11 +82,11 @@ export default function Home() {
   }
 
 
-  let nominationContent = <p className="text-center">No Nominations Selected...</p>
+  let NominationContent = <p className="text-center">No Nominations Selected...</p>
 
   if (nominations.length > 0) {
-    nominationContent = (
-    <ul className="h-24 overflow-y-scroll">
+    NominationContent = (
+    <ul className="h-full overflow-y-scroll">
       {nominations.map((movie) => {
         return (
         <li className="flex justify-between p-1 m-1 border rounded">{movie.Title} ({movie.Year}) <button className="" onClick={() => {removeNomination(movie)}}><svg xmlns="http://www.w3.org/2000/svg" className="remove-btn h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,15 +98,22 @@ export default function Home() {
     )
   }
 
+  const DisplayBanner = () => {
+    return (
+      <div className="grid place-items-center bg-red-700 w-full h-12 text-center text-white font-bold">User Has Selected 5 Movies!</div>
+    )
+  }
+
   return (
-    <div className="h-screen flex flex-col justify-start items-center bg-gradient-to-r from-green-700 via-green-400 to-green-700">
+    <div className="h-screen flex flex-col justify-start items-center bg-gradient-to-r from-green-700 via-green-200 to-green-700">
       <Head>
         <title>The Shoppies</title>
         <meta name="description" content="The Shoppies | A Site That Allows a User to Search and Nominate Movies" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="max-w-6xl flex flex-col flex-1 justify-around items-center w-4/5 bg-white">
-        <h1 className="text-center font-bold">Search For A Movie</h1>
+      <main className="max-w-6xl flex flex-col flex-1 gap-2 justify-around items-center w-4/5 bg-white">
+        <h1 className="text-center font-bold my-2">Search For A Movie</h1>
+        {nominations?.length >= 5 && <DisplayBanner />}
         <div className="w-full max-w-lg">
         <form onSubmit={handleSubmit} className="w-full max-w-xl p-2 border rounded sm:p-4">
         <div>
@@ -139,7 +149,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 overflow-y-scroll h-72 w-5/6 lg:grid-cols-2 border rounded p-1">
+        <div className="grid grid-cols-1 flex-1 max-h-screen/2 overflow-y-scroll  w-5/6 lg:grid-cols-2 border rounded p-1">
         {movies?.list?.length > 0 && movies.list.map((movie) => {
         return (
           <div className="flex flex-col justify-between bg-gray-200 p-2 m-1 gap-1 rounded">
@@ -155,14 +165,12 @@ export default function Home() {
         })
         }
         </div>
-        {nominations?.length >= 5 && displayBanner()}
-
-        <div className="w-5/6 border rounded p-1">
-          <div className="flex justify-center gap-2">
+        <div className="w-5/6 border flex-1 max-h-60  rounded p-1">
+          <div className="flex justify-center gap-2 border-b">
           <h2>Saved Nominations</h2><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
 </svg></div>
-          {nominationContent}
+        {NominationContent}
         </div>
       </main>
       <footer className="w-full h-8 flex justify-center items-center items-center border-t bg-gray-100">
